@@ -1,13 +1,18 @@
 package com.dummy.project.domain.client;
 
+import com.dummy.project.domain.contract.ContractService;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
+    private final ContractService contractService;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository, ContractService contractService) {
         this.clientRepository = clientRepository;
+        this.contractService = contractService;
     }
 
     public void create(Client client) {
@@ -47,6 +52,9 @@ public class ClientService {
     }
 
     public void deleteById(Integer id) {
+        var contracts = contractService.getContracts(id, null);
+        contracts.forEach(contract -> contract.setEndDate(LocalDate.now()));
+        contractService.updateContracts(contracts);
         clientRepository.deleteById(id);
     }
 

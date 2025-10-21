@@ -3,9 +3,9 @@ package com.dummy.project.repository.client;
 import com.dummy.project.domain.client.Client;
 import com.dummy.project.domain.client.ClientRepository;
 import com.dummy.project.repository.mapper.ClientRepositoryMapper;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ClientRepositoryAdaptor implements ClientRepository {
 
     private final ClientJpaRepository clientJpaRepository;

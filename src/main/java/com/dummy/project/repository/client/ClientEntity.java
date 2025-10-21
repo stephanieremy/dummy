@@ -1,15 +1,14 @@
 package com.dummy.project.repository.client;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.dummy.project.repository.contract.ContractEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,6 +27,8 @@ public class ClientEntity {
     private String email;
     private LocalDate birthDate;
     private String companyIdentifier;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.DETACH)
+    private List<ContractEntity> contracts;
 
     public enum ClientType {
         PERSON, COMPANY
