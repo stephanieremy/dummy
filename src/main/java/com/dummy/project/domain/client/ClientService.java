@@ -1,18 +1,14 @@
 package com.dummy.project.domain.client;
 
-import com.dummy.project.domain.contract.ContractService;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
-    private final ContractService contractService;
 
-    public ClientService(ClientRepository clientRepository, ContractService contractService) {
+
+    public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        this.contractService = contractService;
     }
 
     public void create(Client client) {
@@ -48,14 +44,11 @@ public class ClientService {
     }
 
     public Client findById(Integer id) {
-        return clientRepository.findById(id);
+        return clientRepository.findById(id).orElseThrow(() -> new InvalidClientException("Client not found !"));
     }
 
-    public void deleteById(Integer id) {
-        var contracts = contractService.getContracts(id, null);
-        contracts.forEach(contract -> contract.setEndDate(LocalDate.now()));
-        contractService.updateContracts(contracts);
-        clientRepository.deleteById(id);
+    public void deleteById(Client client) {
+        clientRepository.deleteById(client.getId());
     }
 
     public static class InvalidClientException extends RuntimeException {

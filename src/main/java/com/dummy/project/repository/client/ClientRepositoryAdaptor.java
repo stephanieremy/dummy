@@ -5,6 +5,8 @@ import com.dummy.project.domain.client.ClientRepository;
 import com.dummy.project.repository.mapper.ClientRepositoryMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class ClientRepositoryAdaptor implements ClientRepository {
 
@@ -17,10 +19,8 @@ public class ClientRepositoryAdaptor implements ClientRepository {
     }
 
     @Override
-    public Client findById(Integer id) {
-        clientJpaRepository.findById(id).orElseThrow(() -> new RuntimeException("Client not found"));
-        var createdClient = clientJpaRepository.findById(id).get();
-        return clientRepositoryMapper.clientEntityToClient(createdClient);
+    public Optional<Client> findById(Integer id) {
+        return clientJpaRepository.findById(id).map(clientRepositoryMapper::clientEntityToClient);
     }
 
     @Override

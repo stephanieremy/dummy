@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,10 +31,10 @@ public class ContractEntity {
 
     @Column(name = "updated_date")
     @LastModifiedDate
-    private LocalDate updatedDate;
+    private LocalDateTime updatedDate;
 
     private Double costAmount;
-    
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private ClientEntity client;

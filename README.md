@@ -22,6 +22,7 @@ This project uses Docker Compose to run a Spring Boot application connected to a
 In the root directory (where docker-compose.yml is located), run:
 
 ```
+mvn clean install
 docker-compose up --build
 ```
 
@@ -33,12 +34,7 @@ This will:
     * db: A PostgreSQL 13.1 database
 * Automatically initialize the database with the init.sql script
 
-* Once running, the application will be available at:
-
-http://localhost:8080
-
-Note: The application connects to the database using localhost due to network_mode: host. This works on Linux systems.
-On macOS or Windows, you may need to switch to Docker bridge networking for compatibility.
+* Once running, the application will be available at: http://localhost:8080
 
 ⛔ Stopping the Application
 To stop the containers:

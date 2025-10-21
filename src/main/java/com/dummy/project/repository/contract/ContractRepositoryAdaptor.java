@@ -7,8 +7,9 @@ import com.dummy.project.repository.mapper.ClientRepositoryMapper;
 import com.dummy.project.repository.mapper.ContractRepositoryMapper;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ContractRepositoryAdaptor implements ContractRepository {
@@ -33,7 +34,7 @@ public class ContractRepositoryAdaptor implements ContractRepository {
     }
 
     @Override
-    public List<Contract> getContracts(Client client, LocalDate updatedDate) {
+    public List<Contract> getContracts(Client client, LocalDateTime updatedDate) {
         return contractRepositoryMapper.toContracts(contractJpaRepository.findByClientId(clientRepositoryMapper.clientToClientEntity(client), updatedDate));
     }
 
@@ -50,9 +51,9 @@ public class ContractRepositoryAdaptor implements ContractRepository {
     }
 
     @Override
-    public Contract getContractById(Integer id) {
+    public Optional<Contract> getContractById(Integer id) {
         contractJpaRepository.findById(id).orElseThrow(() -> new RuntimeException("Contract not found"));
-        return contractRepositoryMapper.toContract(contractJpaRepository.findById(id).get());
+        return contractJpaRepository.findById(id).map(contractRepositoryMapper::toContract);
     }
 
     @Override

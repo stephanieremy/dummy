@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
-@RestController()
-@RequestMapping(path = "/contracts")
+@RestController
+@RequestMapping("contracts")
 public class ContractController {
 
     private final ContractService contractService;
@@ -22,26 +22,27 @@ public class ContractController {
         this.contractMapper = contractMapper;
     }
 
-    @PutMapping("/{clientId}")
+    @PutMapping("{clientId}")
     public void createContract(@RequestBody ContractDTO contractDTO, @PathVariable Integer clientId) {
         contractService.createContract(contractMapper.toContract(contractDTO), clientId);
     }
 
-    @RequestMapping(value = {"/{clientId}/{updatedDate}", "{clientId}"}, method = RequestMethod.GET)
-    public List<ContractDTO> getContractByClient(@PathVariable Integer clientId, @PathVariable(required = false) LocalDate updatedDate) {
+    @GetMapping("{clientId}")
+    public List<ContractDTO> getContractByClient(@PathVariable Integer clientId, @RequestParam(required = false) LocalDateTime updatedDate) {
         return contractMapper.toContractDTOList(contractService.getContracts(clientId, updatedDate));
     }
 
-    @GetMapping("/sum/{clientId}")
+    @GetMapping("sum/{clientId}")
     public Double getContractAmountSumByClient(@PathVariable Integer clientId) {
+        // TODO Return response object dto { clientId, contractTotal }
         return contractService.getContractAmountSum(clientId);
     }
 
-    @PatchMapping("/{id}/{costAmount}")
+    @PatchMapping("{id}/{costAmount}")
     public ContractDTO updateContract(@PathVariable Integer id, @PathVariable Double costAmount) {
+        // TODO costAmount as payload body
         return contractMapper.toContractDTO(contractService.updateContract(id, costAmount));
     }
-
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception ex) {

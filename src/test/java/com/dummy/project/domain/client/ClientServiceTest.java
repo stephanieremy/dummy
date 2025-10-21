@@ -9,6 +9,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static com.dummy.project.domain.client.ClientService.InvalidClientException;
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,7 +64,7 @@ class ClientServiceTest {
                 .companyIdentifier(null)
                 .phoneNumber("+41 121 87 87")
                 .build();
-        when(clientRepository.findById(1)).thenReturn(client);
+        when(clientRepository.findById(1)).thenReturn(Optional.ofNullable(client));
         var foundClient = clientService.findById(1);
         assertEquals("name", foundClient.getName());
     }
