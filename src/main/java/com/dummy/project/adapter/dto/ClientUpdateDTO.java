@@ -20,7 +20,7 @@ public class ClientUpdateDTO {
     @NotEmpty
     private String name;
     @NotEmpty
-    @Email
+    @Email(regexp = ".+@.+\\..+")
     private String email;
 
 }

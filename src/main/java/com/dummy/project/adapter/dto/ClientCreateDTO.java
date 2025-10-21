@@ -26,7 +26,7 @@ public class ClientCreateDTO {
     @NotEmpty
     private String name;
     @NotEmpty
-    @Email
+    @Email(regexp = ".+@.+\\..+")
     private String email;
     private LocalDate birthDate;
     private String companyIdentifier;
