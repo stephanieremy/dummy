@@ -1,6 +1,7 @@
 package com.dummy.project.adapter.mapper;
 
 import com.dummy.project.adapter.dto.ContractDTO;
+import com.dummy.project.adapter.dto.CostAmountDTO;
 import com.dummy.project.domain.contract.Contract;
 import org.mapstruct.Mapper;
 
@@ -14,4 +15,6 @@ public interface ContractMapper {
     Contract toContract(ContractDTO contractDTO);
 
     List<ContractDTO> toContractDTOList(List<Contract> contracts);
+
+    CostAmountDTO toCostAmountDTO(Double costAmount);
 }
