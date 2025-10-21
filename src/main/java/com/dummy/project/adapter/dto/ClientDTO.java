@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class ClientDTO {
 
     private Integer id;
-    @Schema(description = "Client type", example = "COMPANY")
+    @Schema(type = "string", allowableValues = {"PERSON", "COMPANY"})
     private ClientType type;
     private String phoneNumber;
     private String name;

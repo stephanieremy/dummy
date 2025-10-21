@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Setter
 public class ClientCreateDTO {
 
-    @Schema(description = "Client type", example = "Company")
+    @Schema(description = "Client type", example = "PERSON")
     @NotNull
     private ClientType type;
     @NotEmpty
